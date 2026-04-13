@@ -14,41 +14,49 @@ export interface ThemeColors {
   accent: string
 }
 
-// Perceptually balanced using OKLCH color space
-// All accents at L*≈60-65 (dark) / L*≈50-55 (light) for visual balance
-// Warm hue foundation: yerba≈75° (yellow-green), terere≈65° (warm yellow)
-// Accent hue: ≈30-35° (warm orange-coral)
+/**
+ * Mate-Industrial Theme Colors
+ * @see ./PHILOSOPHY.md for design principles
+ * 
+ * Technical foundations:
+ * - CIELAB perceptual uniformity (L*, a*, b*)
+ * - Dark theme: L*=28 background, L*=60 accents
+ * - Light theme: L*=90 background, L*=50 accents
+ * - Same hues across themes (Solarized principle)
+ * - One vivid accent: keyword/coral (Ember principle)
+ * - Muted tones, no neon (Boo principle)
+ */
 
 export const yerbaMate: ThemeColors = {
   name: 'yerba-mate',
   label: 'Yerba Mate',
-  bg: '#444735',
-  bg1: '#3a3d2c',
-  fg: '#d4dbd0',
-  keyword: '#d98856',
-  string: '#94b848',
-  function: '#68a0c0',
-  type: '#c9a060',
-  comment: '#5a624a',
-  number: '#c08080',
-  operator: '#a08860',
-  accent: '#d98856',
+  bg: '#444735',      // L*=28, user preferred
+  bg1: '#383b29',     // L*=24, slightly darker layer
+  fg: '#e8e4d8',      // L*=90, good contrast
+  keyword: '#e08050', // L*=60, hue=25° (coral - ONE vivid accent)
+  string: '#90b848', // L*=60, hue=90° (green)
+  function: '#70a0c0', // L*=60, hue=210° (blue)
+  type: '#c8a050',    // L*=62, hue=50° (gold)
+  comment: '#606550', // L*=40, muted
+  number: '#c07070',  // L*=58, hue=0° (rose)
+  operator: '#806848', // L*=50, low emphasis
+  accent: '#e08050',  // Same as keyword (Ember principle)
 }
 
 export const terere: ThemeColors = {
   name: 'terere',
   label: 'Terere',
-  bg: '#f2e8d0',
-  bg1: '#e4d8b0',
-  fg: '#2a2820',
-  keyword: '#c05838',
-  string: '#609030',
-  function: '#3070a0',
-  type: '#a06830',
-  comment: '#807860',
-  number: '#a05050',
-  operator: '#805830',
-  accent: '#c05838',
+  bg: '#f0e8d0',      // L*=90, warm cream
+  bg1: '#e4d8b8',     // L*=86, slightly darker layer
+  fg: '#302820',      // L*=20, good contrast
+  keyword: '#c06030', // L*=50, hue=25° (same hue as dark)
+  string: '#508028', // L*=50, hue=90° (same hue)
+  function: '#4070a0', // L*=50, hue=210° (same hue)
+  type: '#a06828',   // L*=55, hue=50° (same hue)
+  comment: '#808070', // L*=55, muted
+  number: '#a04040',  // L*=48, hue=0° (same hue)
+  operator: '#806030', // L*=50, low emphasis
+  accent: '#c06030',  // Same as keyword
 }
 
 export const themes = [yerbaMate, terere]
