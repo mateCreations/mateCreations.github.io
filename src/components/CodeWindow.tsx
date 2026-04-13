@@ -11,7 +11,7 @@ function t(text: string, role: Token['role']): Token {
   return { text, role }
 }
 
-const CODE_LINES: CodeLine[] = [
+const CODE_LINES_DARK: CodeLine[] = [
   [t('// yerba-mate — dark theme for Neovim', 'comment')],
   [],
   [t('import', 'keyword'), t(' { EventEmitter } ', 'fg'), t('from', 'keyword'), t(' ', 'fg'), t('"events"', 'string')],
@@ -35,11 +35,36 @@ const CODE_LINES: CodeLine[] = [
   [t('}', 'fg')],
 ]
 
+const CODE_LINES_LIGHT: CodeLine[] = [
+  [t('// terere — light theme for Neovim', 'comment')],
+  [],
+  [t('import', 'keyword'), t(' { EventEmitter } ', 'fg'), t('from', 'keyword'), t(' ', 'fg'), t('"events"', 'string')],
+  [t('import ', 'keyword'), t('type', 'keyword'), t(' { Readable } ', 'fg'), t('from', 'keyword'), t(' ', 'fg'), t('"stream"', 'string')],
+  [],
+  [t('type ', 'keyword'), t('Strength', 'type'), t(' = ', 'operator'), t('"mild"', 'string'), t(' | ', 'operator'), t('"strong"', 'string')],
+  [],
+  [t('interface ', 'keyword'), t('BrewConfig', 'type'), t(' {', 'fg')],
+  [t('  temperature', 'fg'), t(': ', 'operator'), t('number', 'type')],
+  [t('  strength', 'fg'), t(': ', 'operator'), t('Strength', 'type')],
+  [t('  organic', 'fg'), t(': ', 'operator'), t('boolean', 'type')],
+  [t('}', 'fg')],
+  [],
+  [t('class ', 'keyword'), t('Terere', 'type'), t(' extends ', 'keyword'), t('EventEmitter', 'type'), t(' {', 'fg')],
+  [t('  private ', 'keyword'), t('brewCount', 'fg'), t(' = ', 'operator'), t('0', 'number')],
+  [],
+  [t('  async ', 'keyword'), t('brew', 'function'), t('(label', 'fg'), t(': ', 'operator'), t('string', 'type'), t(')', 'fg'), t(': ', 'operator'), t('Promise', 'type'), t('<', 'operator'), t('string', 'type'), t('> {', 'fg')],
+  [t('    this.brewCount', 'fg'), t('++', 'operator')],
+  [t('    ', 'fg'), t('return', 'keyword'), t(' `brew #${', 'string'), t('this.brewCount', 'fg'), t('}` ', 'string')],
+  [t('  }', 'fg')],
+  [t('}', 'fg')],
+]
+
 interface Props {
   theme: ThemeColors
 }
 
 export default function CodeWindow({ theme }: Props) {
+  const codeLines = theme.name === 'yerba-mate' ? CODE_LINES_DARK : CODE_LINES_LIGHT
   const tokenColor = (role: Token['role']): string => {
     switch (role) {
       case 'keyword': return theme.keyword
@@ -82,13 +107,13 @@ export default function CodeWindow({ theme }: Props) {
       </div>
 
       {/* Code body */}
-      <div className="flex overflow-x-auto">
+      <div className="flex overflow-x-auto" style={{ backgroundColor: theme.bg }}>
         {/* Line numbers */}
         <div
           className="select-none px-3 pt-4 pb-4 text-right text-xs font-mono leading-6 shrink-0"
           style={{ color: theme.comment, backgroundColor: theme.bg1, minWidth: '2.5rem' }}
         >
-          {CODE_LINES.map((_, i) => (
+          {codeLines.map((_, i) => (
             <div key={i}>{i + 1}</div>
           ))}
         </div>
@@ -96,9 +121,9 @@ export default function CodeWindow({ theme }: Props) {
         {/* Code */}
         <pre
           className="px-4 pt-4 pb-4 text-xs font-mono leading-6 text-left overflow-x-auto flex-1"
-          style={{ color: theme.fg, margin: 0 }}
+          style={{ color: theme.fg, backgroundColor: theme.bg, margin: 0 }}
         >
-          {CODE_LINES.map((line, i) => (
+          {codeLines.map((line, i) => (
             <div key={i} className="whitespace-pre">
               {line.length === 0 ? '\n' : line.map((token, j) => (
                 <span key={j} style={{ color: tokenColor(token.role) }}>
