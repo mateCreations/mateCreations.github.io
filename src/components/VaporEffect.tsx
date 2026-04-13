@@ -17,7 +17,7 @@ export default function VaporEffect() {
   useEffect(() => {
     const newParticles: Particle[] = Array.from({ length: 8 }, (_, i) => ({
       id: i,
-      x: 42 + Math.random() * 16,
+      x: 38 + Math.random() * 16,
       delay: i * 0.35,
       duration: 2.5 + Math.random() * 1.5,
       size: 10 + Math.random() * 12,
