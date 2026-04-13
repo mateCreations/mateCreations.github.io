@@ -31,7 +31,7 @@ export const yerbaMate: ThemeColors = {
   name: 'yerba-mate',
   label: 'Yerba Mate',
   bg: '#444735',      // L*=28, user preferred
-  bg1: '#363828',     // L*=22, darker green
+  bg1: '#404232',     // L*=26, subtle layer
   fg: '#e8e4d8',      // L*=90, good contrast
   keyword: '#e08050', // L*=60, hue=25° (coral - ONE vivid accent)
   string: '#90b848', // L*=60, hue=90° (green)
