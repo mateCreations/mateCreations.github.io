@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react'
+import { useTheme } from '../context/ThemeContext'
 
 interface Particle {
   id: number
@@ -10,6 +11,7 @@ interface Particle {
 }
 
 export default function VaporEffect() {
+  const { isDark } = useTheme()
   const [particles, setParticles] = useState<Particle[]>([])
 
   useEffect(() => {
@@ -24,6 +26,10 @@ export default function VaporEffect() {
     setParticles(newParticles)
   }, [])
 
+  const gradientColor = isDark
+    ? 'rgba(255, 255, 255, 0.5), rgba(200, 200, 200, 0.3)'
+    : 'rgba(139, 90, 43, 0.5), rgba(100, 60, 20, 0.3)'
+
   return (
     <div className="absolute -top-6 left-1/2 -translate-x-1/2 w-24 h-24 pointer-events-none z-20">
       {particles.map((p) => (
@@ -36,7 +42,7 @@ export default function VaporEffect() {
             width: p.size,
             height: p.size,
             opacity: p.opacity,
-            background: `radial-gradient(circle, rgba(255, 200, 140, 0.5) 0%, rgba(212, 136, 86, 0.3) 40%, transparent 70%)`,
+            background: `radial-gradient(circle, ${gradientColor.split(', ')[0]} 0%, ${gradientColor.split(', ')[1]} 40%, transparent 70%)`,
             filter: 'blur(2px)',
             animation: `vapor-rise ${p.duration}s ease-out infinite`,
             animationDelay: `${p.delay}s`,
