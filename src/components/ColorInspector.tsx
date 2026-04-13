@@ -4,9 +4,10 @@ import { hexToRgb, hexToLab } from '../utils/colorUtils'
 interface Props {
   color: string
   label: string
+  borderColor?: string
 }
 
-export default function ColorInspector({ color, label }: Props) {
+export default function ColorInspector({ color, label, borderColor }: Props) {
   const [isOpen, setIsOpen] = useState(false)
   const [copied, setCopied] = useState<string | null>(null)
   const buttonRef = useRef<HTMLButtonElement>(null)
@@ -14,6 +15,7 @@ export default function ColorInspector({ color, label }: Props) {
 
   const rgb = hexToRgb(color)
   const lab = hexToLab(color)
+  const border = borderColor ?? 'rgba(255,255,255,0.1)'
 
   useEffect(() => {
     if (!isOpen) return
@@ -56,12 +58,12 @@ export default function ColorInspector({ color, label }: Props) {
   ]
 
   return (
-    <div className="relative">
+    <div className="relative w-12 h-12">
       <button
         ref={buttonRef}
         onClick={() => setIsOpen(!isOpen)}
         className="w-full h-full rounded-lg cursor-pointer transition-transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-opacity-50"
-        style={{ backgroundColor: color }}
+        style={{ backgroundColor: color, border: `2px solid ${border}` }}
         aria-label={`Inspect ${label} color: ${color}`}
         aria-expanded={isOpen}
         aria-haspopup="dialog"

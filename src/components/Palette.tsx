@@ -39,9 +39,11 @@ function PaletteRow({ theme }: { theme: ThemeColors }) {
           const color = theme[key] as string
           return (
             <div key={key} className="group flex flex-col items-center gap-2 relative">
-              <div className="w-12 h-12">
-                <ColorInspector color={color} label={label} />
-              </div>
+              <ColorInspector 
+                color={color} 
+                label={label} 
+                borderColor={isDark ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.1)'} 
+              />
               <span className="text-xs font-mono" style={{ color: theme.comment }}>
                 {label}
               </span>
