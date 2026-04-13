@@ -15,33 +15,33 @@ export default function VaporEffect() {
   const [particles, setParticles] = useState<Particle[]>([])
 
   useEffect(() => {
-    const newParticles: Particle[] = Array.from({ length: 15 }, (_, i) => ({
+    const newParticles: Particle[] = Array.from({ length: 10 }, (_, i) => ({
       id: i,
-      x: 25 + Math.random() * 50,
-      delay: i * 0.2,
-      duration: 2 + Math.random() * 1,
-      size: 20 + Math.random() * 25,
-      opacity: 0.5 + Math.random() * 0.3,
+      x: 38 + Math.random() * 24,
+      delay: i * 0.3,
+      duration: 2.5 + Math.random() * 1.5,
+      size: 12 + Math.random() * 16,
+      opacity: 0.3 + Math.random() * 0.2,
     }))
     setParticles(newParticles)
   }, [])
 
   return (
-    <div className="absolute -top-8 left-1/2 -translate-x-1/2 w-28 h-28 pointer-events-none z-20">
+    <div className="absolute -top-4 left-1/2 -translate-x-1/2 w-20 h-20 pointer-events-none z-20">
       {particles.map((p) => (
         <div
           key={p.id}
           className="absolute rounded-full"
           style={{
             left: `${p.x}%`,
-            bottom: '30%',
+            bottom: '35%',
             width: p.size,
             height: p.size,
             opacity: p.opacity,
             background: isDark
-              ? `radial-gradient(circle, rgba(255, 255, 255, 0.7) 0%, rgba(220, 220, 220, 0.4) 40%, transparent 70%)`
-              : `radial-gradient(circle, rgba(180, 140, 100, 0.7) 0%, rgba(140, 100, 60, 0.4) 40%, transparent 70%)`,
-            filter: 'blur(1px)',
+              ? `radial-gradient(circle, rgba(255, 255, 255, 0.5) 0%, rgba(200, 200, 200, 0.25) 40%, transparent 70%)`
+              : `radial-gradient(circle, rgba(160, 120, 80, 0.5) 0%, rgba(120, 80, 40, 0.25) 40%, transparent 70%)`,
+            filter: 'blur(2px)',
             animation: `vapor-rise ${p.duration}s ease-out infinite`,
             animationDelay: `${p.delay}s`,
           }}
@@ -50,15 +50,14 @@ export default function VaporEffect() {
       <style>{`
         @keyframes vapor-rise {
           0% {
-            transform: translateY(0) scale(1) rotate(0deg);
-            opacity: 0.6;
+            transform: translateY(0) scale(1);
+            opacity: 0.35;
           }
-          50% {
-            opacity: 0.4;
-            transform: translateY(-40px) scale(1.3);
+          40% {
+            opacity: 0.25;
           }
           100% {
-            transform: translateY(-100px) scale(2.5) rotate(20deg);
+            transform: translateY(-70px) scale(2);
             opacity: 0;
           }
         }
