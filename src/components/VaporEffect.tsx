@@ -27,14 +27,14 @@ export default function VaporEffect() {
   }, [])
 
   return (
-    <div className="absolute top-0 left-1/2 -translate-x-1/2 w-16 h-16 pointer-events-none z-20">
+    <div className="absolute -top-2 left-1/2 -translate-x-1/2 w-16 h-8 pointer-events-none z-20">
       {particles.map((p) => (
         <div
           key={p.id}
           className="absolute rounded-full"
           style={{
             left: `${p.x}%`,
-            bottom: '10%',
+            bottom: '0',
             width: p.size,
             height: p.size,
             opacity: p.opacity,
