@@ -54,18 +54,12 @@ export default function ThemeToggle({ onThemeChange, currentTheme }: Props) {
         </svg>
       </div>
 
-      <div className="absolute inset-0 flex items-center justify-between px-2 pointer-events-none">
+      <div className="absolute left-1/2 -translate-x-1/2 top-1/2 -translate-y-1/2 pointer-events-none">
         <span
-          className="text-[10px] font-mono opacity-60"
-          style={{ color: isDark ? '#dce0d9' : '#3c3836' }}
+          className="text-[9px] font-mono font-semibold"
+          style={{ color: isDark ? '#1c1e13' : '#fbf1c7' }}
         >
-          dark
-        </span>
-        <span
-          className="text-[10px] font-mono opacity-60"
-          style={{ color: isDark ? '#dce0d9' : '#3c3836' }}
-        >
-          light
+          {isDark ? 'dark' : 'light'}
         </span>
       </div>
     </button>
