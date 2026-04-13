@@ -105,3 +105,38 @@ body {
   transform: translateY(-2px);
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
 }
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  
+  body {
+    transition: none;
+  }
+  
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+  
+  .reveal.visible {
+    opacity: 1;
+    transform: none;
+  }
+  
+  .stagger > * {
+    opacity: 1;
+    animation: none;
+  }
+  
+  .cursor-blink {
+    animation: none;
+    opacity: 1;
+  }
+  
+  .shimmer {
+    animation: none;
+  }
+}

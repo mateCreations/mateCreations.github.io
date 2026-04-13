@@ -26,6 +26,10 @@ export function ThemeProvider({ children }: Props) {
   useEffect(() => {
     document.body.style.backgroundColor = theme.bg
     document.body.style.color = theme.fg
+    
+    document.body.style.setProperty('--bg', theme.bg)
+    document.body.style.setProperty('--bg1', theme.bg1)
+    document.body.style.setProperty('--fg', theme.fg)
   }, [theme])
 
   return (

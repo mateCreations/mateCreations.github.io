@@ -6,16 +6,17 @@ import ContrastBadge from './ContrastBadge'
 import PerceptualCluster from './PerceptualCluster'
 import TonalStrip from './TonalStrip'
 import ComponentPreview from './ComponentPreview'
+import ColorInspector from './ColorInspector'
 
 const LAYERS = [
-  { key: 'bg', label: 'Background', layer: 0 },
-  { key: 'bg1', label: 'Layer 01', layer: 1 },
-  { key: 'fg', label: 'Foreground', layer: 0 },
-  { key: 'keyword', label: 'Keywords', layer: 2 },
-  { key: 'string', label: 'Strings', layer: 2 },
-  { key: 'function', label: 'Functions', layer: 2 },
-  { key: 'type', label: 'Types', layer: 2 },
-  { key: 'comment', label: 'Comments', layer: 1 },
+  { key: 'bg', label: 'Background' },
+  { key: 'bg1', label: 'Layer 01' },
+  { key: 'fg', label: 'Foreground' },
+  { key: 'keyword', label: 'Keywords' },
+  { key: 'string', label: 'Strings' },
+  { key: 'function', label: 'Functions' },
+  { key: 'type', label: 'Types' },
+  { key: 'comment', label: 'Comments' },
 ] as const
 
 function PaletteRow({ theme }: { theme: ThemeColors }) {
@@ -34,24 +35,12 @@ function PaletteRow({ theme }: { theme: ThemeColors }) {
       </div>
 
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-        {LAYERS.map(({ key, label, layer }) => {
+        {LAYERS.map(({ key, label }) => {
           const color = theme[key] as string
           return (
             <div key={key} className="group flex flex-col items-center gap-2 relative">
-              <div
-                className="w-12 h-12 rounded-lg transition-transform duration-200 group-hover:scale-110 cursor-default flex items-center justify-center"
-                style={{
-                  backgroundColor: color,
-                  border: `2px solid ${isDark ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.1)'}`,
-                  boxShadow: layer === 2 ? `0 0 0 2px ${theme.bg1}` : 'none',
-                }}
-              >
-                <span
-                  className="text-[10px] font-mono opacity-0 group-hover:opacity-100 transition-opacity"
-                  style={{ color: key === 'bg' || key === 'bg1' ? theme.fg : theme.bg }}
-                >
-                  {color}
-                </span>
+              <div className="w-12 h-12">
+                <ColorInspector color={color} label={label} />
               </div>
               <span className="text-xs font-mono" style={{ color: theme.comment }}>
                 {label}
