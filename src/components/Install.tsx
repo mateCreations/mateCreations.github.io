@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { installTabs } from '../data/installSteps'
 import type { InstallContent } from '../data/installSteps'
+import { useScrollReveal } from '../hooks/useScrollReveal'
 
 function CopyButton({ code }: { code: string }) {
   const [copied, setCopied] = useState(false)
@@ -67,9 +68,10 @@ function ContentBlock({ item }: { item: InstallContent }) {
 export default function Install() {
   const [activeTab, setActiveTab] = useState('neovim')
   const active = installTabs.find((t) => t.id === activeTab)!
+  const ref = useScrollReveal<HTMLElement>()
 
   return (
-    <section id="install" className="w-full py-16 px-4">
+    <section ref={ref} id="install" className="reveal w-full py-16 px-4">
       <div className="max-w-2xl mx-auto">
         <h2 className="text-2xl font-semibold tracking-tight mb-8 text-center" style={{ color: '#dce0d9' }}>
           Install

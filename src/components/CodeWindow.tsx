@@ -130,6 +130,9 @@ export default function CodeWindow({ theme }: Props) {
                   {token.text}
                 </span>
               ))}
+              {i === codeLines.length - 1 && (
+                <span className="cursor-blink" style={{ color: theme.fg }}>▋</span>
+              )}
             </div>
           ))}
         </pre>

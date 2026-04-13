@@ -1,6 +1,7 @@
 import Hero from './components/Hero'
 import CodeDuo from './components/CodeDuo'
 import Palette from './components/Palette'
+import Stats from './components/Stats'
 import Install from './components/Install'
 import Footer from './components/Footer'
 
@@ -10,6 +11,7 @@ function App() {
       <Hero />
       <CodeDuo />
       <Palette />
+      <Stats />
       <Install />
       <Footer />
     </div>
