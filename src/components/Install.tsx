@@ -2,36 +2,43 @@ import { useState } from 'react'
 import { installTabs } from '../data/installSteps'
 import type { InstallContent } from '../data/installSteps'
 import { useScrollReveal } from '../hooks/useScrollReveal'
+import { useTheme } from '../context/ThemeContext'
 
-function CopyButton({ code }: { code: string }) {
+function CopyButton({ code, theme }: { code: string; theme: ReturnType<typeof useTheme>['theme'] }) {
   const [copied, setCopied] = useState(false)
+  const [animating, setAnimating] = useState(false)
 
   const handleCopy = () => {
     navigator.clipboard.writeText(code).then(() => {
       setCopied(true)
-      setTimeout(() => setCopied(false), 2000)
+      setAnimating(true)
+      setTimeout(() => {
+        setCopied(false)
+        setAnimating(false)
+      }, 2000)
     })
   }
 
   return (
     <button
       onClick={handleCopy}
-      className="absolute top-3 right-3 text-xs px-2 py-1 rounded transition-colors"
+      className="absolute top-3 right-3 text-xs px-2 py-1 rounded transition-all duration-200"
       style={{
-        backgroundColor: copied ? '#363c26' : '#282d1c',
-        color: copied ? '#8fb339' : '#7a8573',
-        border: '1px solid #363c26',
+        backgroundColor: copied ? theme.string : theme.bg1,
+        color: copied ? theme.bg : theme.comment,
+        border: `1px solid ${copied ? theme.string : theme.bg1}`,
+        transform: animating ? 'scale(1.05)' : 'scale(1)',
       }}
     >
-      {copied ? 'Copied!' : 'Copy'}
+      {copied ? '✓ Copied!' : 'Copy'}
     </button>
   )
 }
 
-function ContentBlock({ item }: { item: InstallContent }) {
+function ContentBlock({ item, theme }: { item: InstallContent; theme: ReturnType<typeof useTheme>['theme'] }) {
   return (
     <div className="flex flex-col gap-2">
-      <span className="text-xs font-medium" style={{ color: '#7a8573' }}>
+      <span className="text-xs font-medium" style={{ color: theme.comment }}>
         {item.variantLabel}
       </span>
 
@@ -39,11 +46,11 @@ function ContentBlock({ item }: { item: InstallContent }) {
         <div className="relative">
           <pre
             className="text-sm font-mono rounded-lg p-4 pr-16 overflow-x-auto text-left"
-            style={{ backgroundColor: '#282d1c', color: '#dce0d9', border: '1px solid #363c26' }}
+            style={{ backgroundColor: theme.bg1, color: theme.fg, border: `1px solid ${theme.bg1}` }}
           >
             {item.code}
           </pre>
-          <CopyButton code={item.code} />
+          <CopyButton code={item.code} theme={theme} />
         </div>
       )}
 
@@ -53,7 +60,7 @@ function ContentBlock({ item }: { item: InstallContent }) {
           target="_blank"
           rel="noopener noreferrer"
           className="inline-flex items-center gap-2 text-sm px-4 py-2 rounded-lg w-fit transition-opacity hover:opacity-80"
-          style={{ backgroundColor: '#282d1c', color: '#7eb2d1', border: '1px solid #363c26' }}
+          style={{ backgroundColor: theme.bg1, color: theme.function, border: `1px solid ${theme.bg1}` }}
         >
           {item.linkLabel}
           <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -69,18 +76,18 @@ export default function Install() {
   const [activeTab, setActiveTab] = useState('neovim')
   const active = installTabs.find((t) => t.id === activeTab)!
   const ref = useScrollReveal<HTMLElement>()
+  const { theme } = useTheme()
 
   return (
-    <section ref={ref} id="install" className="reveal w-full py-16 px-4">
+    <section ref={ref} id="install" className="reveal w-full py-16 px-4" style={{ backgroundColor: theme.bg }}>
       <div className="max-w-2xl mx-auto">
-        <h2 className="text-2xl font-semibold tracking-tight mb-8 text-center" style={{ color: '#dce0d9' }}>
+        <h2 className="text-2xl font-semibold tracking-tight mb-8 text-center" style={{ color: theme.fg }}>
           Install
         </h2>
 
-        {/* Tabs */}
         <div
           className="flex gap-1 mb-6 rounded-lg p-1 flex-wrap"
-          style={{ backgroundColor: '#282d1c' }}
+          style={{ backgroundColor: theme.bg1 }}
         >
           {installTabs.map((tab) => (
             <button
@@ -88,8 +95,8 @@ export default function Install() {
               onClick={() => setActiveTab(tab.id)}
               className="px-3 py-1.5 rounded-md text-sm font-medium transition-colors"
               style={{
-                backgroundColor: activeTab === tab.id ? '#363c26' : 'transparent',
-                color: activeTab === tab.id ? '#dce0d9' : '#7a8573',
+                backgroundColor: activeTab === tab.id ? theme.string : 'transparent',
+                color: activeTab === tab.id ? theme.bg : theme.comment,
               }}
             >
               {tab.label}
@@ -97,10 +104,9 @@ export default function Install() {
           ))}
         </div>
 
-        {/* Panel */}
         <div className="flex flex-col gap-6">
           {active.content.map((item, i) => (
-            <ContentBlock key={i} item={item} />
+            <ContentBlock key={i} item={item} theme={theme} />
           ))}
         </div>
       </div>

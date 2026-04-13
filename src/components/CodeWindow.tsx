@@ -84,7 +84,6 @@ export default function CodeWindow({ theme }: Props) {
       className="rounded-xl overflow-hidden shadow-2xl flex-1 min-w-0"
       style={{ backgroundColor: theme.bg, border: `1px solid ${theme.bg1}` }}
     >
-      {/* Title bar */}
       <div
         className="flex items-center gap-2 px-4 py-3"
         style={{ backgroundColor: theme.bg1 }}
@@ -106,9 +105,7 @@ export default function CodeWindow({ theme }: Props) {
         </span>
       </div>
 
-      {/* Code body */}
       <div className="flex overflow-x-auto" style={{ backgroundColor: theme.bg }}>
-        {/* Line numbers */}
         <div
           className="select-none px-3 pt-4 pb-4 text-right text-xs font-mono leading-6 shrink-0"
           style={{ color: theme.comment, backgroundColor: theme.bg1, minWidth: '2.5rem' }}
@@ -118,7 +115,6 @@ export default function CodeWindow({ theme }: Props) {
           ))}
         </div>
 
-        {/* Code */}
         <pre
           className="px-4 pt-4 pb-4 text-xs font-mono leading-6 text-left overflow-x-auto flex-1"
           style={{ color: theme.fg, backgroundColor: theme.bg, margin: 0 }}

@@ -1,24 +1,27 @@
 import { useEffect, useRef, useState } from 'react'
 import { useScrollReveal } from '../hooks/useScrollReveal'
+import { useTheme } from '../context/ThemeContext'
+import type { ThemeColors } from '../theme/colors'
 
 interface StatDef {
   value: number
   suffix?: string
   label: string
   delay: number
-  color: string
+  colorKey: 'accent' | 'keyword' | 'string' | 'function'
 }
 
 const STATS: StatDef[] = [
-  { value: 2,   label: 'Variants',           delay: 0,   color: '#8fb339' },
-  { value: 6,   label: 'Ports',              delay: 150, color: '#7eb2d1' },
-  { value: 100, suffix: '+', label: 'Treesitter groups', delay: 300, color: '#a67c52' },
+  { value: 2, label: 'Variants', delay: 0, colorKey: 'accent' },
+  { value: 6, label: 'Ports', delay: 150, colorKey: 'function' },
+  { value: 100, suffix: '+', label: 'Treesitter groups', delay: 300, colorKey: 'string' },
 ]
 
-function StatCard({ value, suffix = '', label, delay, color }: StatDef) {
+function StatCard({ value, suffix = '', label, delay, colorKey, theme }: StatDef & { theme: ThemeColors }) {
   const [count, setCount] = useState(0)
   const ref = useRef<HTMLDivElement>(null)
   const started = useRef(false)
+  const color = theme[colorKey]
 
   useEffect(() => {
     const el = ref.current
@@ -59,7 +62,7 @@ function StatCard({ value, suffix = '', label, delay, color }: StatDef) {
       </span>
       <span
         className="text-xs font-medium tracking-widest uppercase"
-        style={{ color: '#4f5b4a' }}
+        style={{ color: theme.comment }}
       >
         {label}
       </span>
@@ -68,13 +71,14 @@ function StatCard({ value, suffix = '', label, delay, color }: StatDef) {
 }
 
 export default function Stats() {
+  const { theme } = useTheme()
   const ref = useScrollReveal<HTMLElement>()
 
   return (
-    <section ref={ref} className="reveal w-full py-14 px-4" style={{ backgroundColor: '#1c1e13' }}>
-      <div className="max-w-2xl mx-auto grid grid-cols-3 gap-8">
+    <section ref={ref} className="reveal w-full py-14 px-4" style={{ backgroundColor: theme.bg1 }}>
+      <div className="max-w-2xl mx-auto grid grid-cols-3 gap-8 stagger">
         {STATS.map((s) => (
-          <StatCard key={s.label} {...s} />
+          <StatCard key={s.label} {...s} theme={theme} />
         ))}
       </div>
     </section>
