@@ -1,5 +1,6 @@
 import ThemeToggle from './ThemeToggle'
 import { useTheme } from '../context/ThemeContext'
+import VaporEffect from './VaporEffect'
 
 export default function Hero() {
   const { theme, setTheme, isDark } = useTheme()
@@ -20,11 +21,14 @@ export default function Hero() {
         }}
       />
 
-      <img
-        src="/logo.png"
-        alt="Mate Creations"
-        className="w-20 h-20 mb-6 relative z-10 transition-transform duration-300 hover:scale-110 hover:rotate-3"
-      />
+      <div className="relative">
+        <img
+          src="/logo.png"
+          alt="Mate Creations"
+          className="w-20 h-20 mb-6 relative z-10 transition-transform duration-300 hover:scale-110 hover:rotate-3"
+        />
+        <VaporEffect />
+      </div>
 
       <h1 className="text-5xl font-bold tracking-tight mb-3 relative z-10" style={{ color: theme.fg }}>
         Mate Creations
