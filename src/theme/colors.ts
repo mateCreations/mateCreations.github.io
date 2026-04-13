@@ -22,8 +22,8 @@ export interface ThemeColors {
 export const yerbaMate: ThemeColors = {
   name: 'yerba-mate',
   label: 'Yerba Mate',
-  bg: '#474c30',
-  bg1: '#3d4128',
+  bg: '#444735',
+  bg1: '#3a3d2c',
   fg: '#d4dbd0',
   keyword: '#d98856',
   string: '#94b848',
