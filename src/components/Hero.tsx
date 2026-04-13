@@ -7,15 +7,15 @@ export default function Hero() {
   return (
     <section className="relative flex flex-col items-center pt-24 pb-10 px-4 text-center overflow-hidden">
       <div
-        className="pointer-events-none absolute left-1/2 top-0 h-[500px] w-[600px] -translate-x-1/2"
+        className="pointer-events-none absolute -inset-20"
         style={{
-          background: `radial-gradient(ellipse at center, ${theme.accent}20 0%, transparent 70%)`,
+          background: `radial-gradient(ellipse 60% 40% at 50% 30%, ${theme.accent}18 0%, ${theme.accent}08 30%, transparent 60%)`,
         }}
       />
       <div
         className="pointer-events-none absolute inset-0"
         style={{
-          backgroundImage: `radial-gradient(circle, ${isDark ? 'rgba(255,255,255,0.03)' : 'rgba(0,0,0,0.03)'} 1px, transparent 1px)`,
+          backgroundImage: `radial-gradient(circle, ${isDark ? 'rgba(255,255,255,0.02)' : 'rgba(0,0,0,0.015)'} 1px, transparent 1px)`,
           backgroundSize: '24px 24px',
         }}
       />
