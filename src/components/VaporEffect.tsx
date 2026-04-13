@@ -15,26 +15,26 @@ export default function VaporEffect() {
   const [particles, setParticles] = useState<Particle[]>([])
 
   useEffect(() => {
-    const newParticles: Particle[] = Array.from({ length: 10 }, (_, i) => ({
+    const newParticles: Particle[] = Array.from({ length: 8 }, (_, i) => ({
       id: i,
-      x: 38 + Math.random() * 24,
-      delay: i * 0.3,
+      x: 42 + Math.random() * 16,
+      delay: i * 0.35,
       duration: 2.5 + Math.random() * 1.5,
-      size: 12 + Math.random() * 16,
-      opacity: 0.3 + Math.random() * 0.2,
+      size: 10 + Math.random() * 12,
+      opacity: 0.25 + Math.random() * 0.15,
     }))
     setParticles(newParticles)
   }, [])
 
   return (
-    <div className="absolute -top-4 left-1/2 -translate-x-1/2 w-20 h-20 pointer-events-none z-20">
+    <div className="absolute top-0 left-1/2 -translate-x-1/2 w-16 h-16 pointer-events-none z-20">
       {particles.map((p) => (
         <div
           key={p.id}
           className="absolute rounded-full"
           style={{
             left: `${p.x}%`,
-            bottom: '35%',
+            bottom: '10%',
             width: p.size,
             height: p.size,
             opacity: p.opacity,
@@ -51,13 +51,13 @@ export default function VaporEffect() {
         @keyframes vapor-rise {
           0% {
             transform: translateY(0) scale(1);
-            opacity: 0.35;
+            opacity: 0.3;
           }
           40% {
-            opacity: 0.25;
+            opacity: 0.2;
           }
           100% {
-            transform: translateY(-70px) scale(2);
+            transform: translateY(-60px) scale(1.8);
             opacity: 0;
           }
         }
